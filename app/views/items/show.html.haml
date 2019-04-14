@@ -2,20 +2,24 @@
 .wapper
   .tops_show
     .tops_show__main
-      %h1.tops_show__main--header
-        = @item.name
+      %h1.tops_show__main--header ベルツァー 西ドイツ製 工具
       .tops_show__main--top
         .tops_show__main--image
-          = image_tag(@item.item_images.first.image.url, class: "tops_show__main--left")
+          = image_tag('/tops_show/m40277878604_1.jpg', class: "tops_show__main--left")
           .tops_show__main--right
-            - @item.item_images.each do|itemimage|
-              = image_tag(itemimage.image.url, class: "tops_show__main--details")
+            = image_tag('/tops_show/m40277878604_2.jpg', class: "tops_show__main--details")
+            = image_tag('/tops_show/m40277878604_3.jpg', class: "tops_show__main--details")
+            = image_tag('/tops_show/我に従え.jpg', class: "tops_show__main--details")
+            = image_tag('/tops_show/437683.png', class: "tops_show__main--details")
+            = image_tag('/tops_show/オリックス.jpeg', class: "tops_show__main--details")
+            = image_tag('/tops_show/ヤンキース.jpeg', class: "tops_show__main--details")
+            = image_tag('/tops_show/阪神タイガース.png', class: "tops_show__main--details")
         %table.tops_show__main--information
           .tops_show__main--exhibitor
             %th.tops_show__main--exhibitor-left
               出品者
             %td.tops_show__main--exhibitor-right
-              =link_to "#{@item.user.name}","",class: "exhibitor__right--name"
+              =link_to "bunbun","",class: "exhibitor__right--name"
               .expression
                 .fas.fa-laugh.smail
                 %span 373
@@ -27,51 +31,61 @@
             %th.tops_show__main--category-left
               カテゴリー
             %td.tops_show__main--category-right
-              = link_to "#{@item.categories.first.name}","",class: "tops_show__main--category-first"
+              = link_to "自転車・オートバイ","",class: "tops_show__main--category-first"
               %br
               = link_to "",class: "tops_show__main--category-second" do
                 %i.fas.fa-chevron-right
+                オートバイパーツ
               %br
-              = link_to "",class: "tops_show__main--category-third" do
+              = link_to "",class: "tops_show__main--category-third"do
                 %i.fas.fa-chevron-right
+                メンテンナス
           %tr.tops_show__main--bland
             %th.tops_show__main--bland-left ブランド
             %td.tops_show__main--bland-right
-              = link_to "#{@item.brands.first.name}","",class: "tops_show__main--bland-right-name"
+              = link_to "4℃","",class: "tops_show__main--bland-right-name"
           %tr.tops_show__main--product-status
             %th.tops_show__main--product-status-left 商品の状態
-            %td.tops_show__main--product-status-right
-              = @item.condition.name
+            %td.tops_show__main--product-status-right 新品、未使用
           %tr.tops_show__main--delivery-fee
             %th.tops_show__main--delivery-fee-left 配送料の不安
-            %td.tops_show__main--delivery-fee-right
-              = @item.shipping_burden.name
+            %td.tops_show__main--delivery-fee-right 送料込み（出品者負担）
           %tr.tops_show__main--delivery-method
             %th.tops_show__main--delivery-method-left 配送の方法
-            %td.tops_show__main--delivery-method-right
-              = @item.shipping_style.name
+            %td.tops_show__main--delivery-method-right らくらくメルカリ便
           %tr.tops_show__main--delivery-source-area
             %th.tops_show__main--delivery-source-area-left 配送元地域
             %td.tops_show__main--delivery-source-area-right
-              = link_to "#{@item.prefecture.name}","",class: "prefecture"
+              = link_to "大阪府","",class: "prefecture"
           %tr.tops_show__main--date-of-shipment
             %th.tops_show__main--date-of-shipment-left 発送日の目安
-            %td.tops_show__main--date-of-shipment-right
-              = @item.date_of_shipment.name
+            %td.tops_show__main--date-of-shipment-right １〜２日で発送
       .tops_show__main--money
-        %span.tops_show__main--price
-          ¥
-          = number_with_delimiter(@item.price)
+        %span.tops_show__main--price ¥ 8,888
         %span.tops_show__main--tax （税込）
         %span.tops_show__main--fee 送料込み
       - if user_signed_in? && current_user.id == @item.user_id
         = link_to "削除","/items/#{@item.id}",method: "DELETE",class: "tops_show__main--purchase"
       - else
-        = link_to "購入画面に進む","/buys",class: "tops_show__main--purchase"
-        
+        = link_to "購入画面に進む","",class: "tops_show__main--purchase"
+
       .tops_show__main--text
         .tops_show__main--description
-          = @item.description
+          ベルツァー  スピーダー ハンドル  7752
+          差し込み角:3/8
+          全長:420mm
+          新品未使用(長期保管の為、少々の傷などはありますが、メッキ剥がれ等はございません)
+
+          今はなきベルツァー、ましてスピーダーハンドルの新品はまず出ないと思います。コレクターの方はぜひどうぞ！
+
+          1988年製、当時スナップオンよりも高価なベルツァー は、市場に出回る品物も少なく手に入れるのはかなり難しいと思います。サンドビックやバーコの傘下に入る前の正真正銘のベルツァー  です。購入当時、高価で有名な、スナップオンよりもさらに2〜3割高いとんでもない幻の工具でした。現在も、かなりの種類のベルツァー  を使用しております。プラスドライバーも30年使い続けていますが、未だに現役です。ベルツァー  バナジウムエキストラ工具鋼    怖るべし！
+          セールス上手の見た目優先のアメリカン工具とは格が違います。
+
+          即決歓迎❗️コメント無し即買い可‼️早い者勝ち❗️
+
+
+
+          ベルツァー  ハゼット  スタビレー  スナップオン  マック 工具BELZER
 
         .tops_show__main--containre
           .tops_show__main--containre-left
@@ -80,9 +94,9 @@
               =link_to "いいね！1","",class: "tops_show__main--good"
             .tops_show__main--containre-left-warning
               %i.far.fa-flag
-              =link_to "不適切な商品の報告","https://www.mercari.com/jp/report/m85240041031/",class: "tops_show__main--report"
+              =link_to "不適切な商品の報告","",class: "tops_show__main--report"
           .tops_show__main--containre-right
-            = link_to "https://www.mercari.com/jp/safe/description/",class: "tops_show__main--containre-right-lock" do
+            = link_to "",class: "tops_show__main--containre-right-lock" do
               %i.fas.fa-lock
               あんしん・あんぜんへの取り組み
 
@@ -113,22 +127,22 @@
 
     %ul.tops_show__next
       %li.tops_show__next--left
-        = link_to "#{@item.id-1}",class: "tops_show__next--left-side" do
+        = link_to "",class: "tops_show__next--left-side" do
           %i.fas.fa-chevron-left
-          NYヤンキースユニフォーム
+          デニムショートパンツ
       %li.tops_show__next--right
-        = link_to "#{@item.id+1}",class: "tops_show__next--right-side" do
-          LAドジャースユニフォーム
+        = link_to "",class: "tops_show__next--right-side" do
+          本鼈甲 ネクタイピン カフスセット
           %i.fas.fa-chevron-right
 
     .tops_show__media-box
       %ul.tops_show__media-box--social
         .tops_show__media-box--icon
-          = link_to "https://www.facebook.com/", class: "tops_show__media-box--facebook" do
+          %a.tops_show__media-box--facebook
             %i.fab.fa-facebook
-          = link_to "https://twitter.com/", class: "tops_show__media-box--twiter" do
+          %a.tops_show__media-box--twiter
             %i.fab.fa-twitter
-          = link_to "https://www.pinterest.jp/", class: "tops_show__media-box--pinterest" do
+          %a.tops_show__media-box--pinterest
             %i.fab.fa-pinterest
 
 .top-main--exhibitor

@@ -105,12 +105,12 @@
       border-collapse: collapse;
       border: 1px solid #f5f5f5;
 
-      .exhibitor__right--name{
+      &--name{
       text-decoration: none;
       color: #0099e8;
       }
 
-      .exhibitor__right--name:hover{
+      &--name:hover{
         text-decoration: underline;
         color: #0099e8;
       }
@@ -462,9 +462,6 @@ line-height: 60px;
 text-align: center;
 font-weight: 600;
 font-size: 24px;
-}
-.tops_show__main--purchase:hover {
-  color: #fff;
 }
 
 .tops_show__main--text{
