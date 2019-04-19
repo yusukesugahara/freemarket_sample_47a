@@ -16,16 +16,16 @@ class ItemsController < ApplicationController
     @category_cosmetic = Category.find(7)
     @items_category_cosmetic = @category_cosmetic.items.order("created_at DESC").limit(4)
 
-    @brand_chanel = Brand.find(29)
+    @brand_chanel = Brand.find(4116)
     @items_brand_chanel = @brand_chanel.items.order("created_at DESC").limit(4)
 
-    @brand_louis_vuitton = Brand.find(30)
+    @brand_louis_vuitton = Brand.find(4117)
     @items_brand_louis_vuitton = @brand_louis_vuitton.items.order("created_at DESC").limit(4)
 
-    @brand_supreme = Brand.find(31)
+    @brand_supreme = Brand.find(4118)
     @items_brand_supreme = @brand_supreme.items.order("created_at DESC").limit(4)
 
-    @brand_nike = Brand.find(32)
+    @brand_nike = Brand.find(4119)
     @items_brand_nike = @brand_nike.items.order("created_at DESC").limit(4)
   end
 
