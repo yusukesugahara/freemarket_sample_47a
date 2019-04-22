@@ -22,7 +22,7 @@ $(window).on('load',function(){
                     <img class="item_new__image--view-image" src="${image_url}">
                       <div class="item_new__image--view-buttons">
                         <div class="item_new__image--view-buttons-edit-button">
-                          編集
+
                         </div>
                       <div class="item_new__image--view-buttons-delete-button">
                         削除
@@ -64,10 +64,10 @@ $(window).on('load',function(){
         },10);
       });
 
-      $(document).on("click",'.preview',function(){
-        var image_box_no = $(this).attr("value");
+      $(document).on("click",'.item_new__image--view-buttons-delete-button',function(){
+        var image_box_no = $(this).parent().parent().attr("value");
         $('.input_image_10'+ image_box_no).remove();
-        $(this).remove();
+        $(this).parent().parent().remove();
         var preview_count_1 = $('.item_new__image--box-prevews-1').children().length;
         var preview_count = $('.item_new__image--box-prevews').children().length;
         if( preview_count_1 == 4 ){
