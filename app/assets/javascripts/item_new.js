@@ -16,34 +16,71 @@ $(window).on('load',function(){
       return html;
     };
 
+    function builduploadimageresultHTML(image_no,image_url){
+      var html = `
+                  <div class="item_new__image--view preview" id="preview_${image_no}" value="${image_no}">
+                    <img class="item_new__image--view-image" src="${image_url}">
+                      <div class="item_new__image--view-buttons">
+                        <div class="item_new__image--view-buttons-edit-button">
+                          編集
+                        </div>
+                      <div class="item_new__image--view-buttons-delete-button">
+                        削除
+                      </div>
+                    </div>
+                  </div>
+                  `
+      return html;
+    };
 
       var image_no = 0;
     $('form').on('change', 'input[type="file"],.item_image_new', function(e) {
        image_no += 1;
         var file = e.target.files[0],
             reader = new FileReader(),
-            $preview = $(".item_new__image--views");
+            $preview = $(".item_new__image--box-prevews");
             t = this;
         if(file.type.indexOf("image") < 0){
           return false;
         }
         reader.onload = (function(file) {
           return function(e) {
-            $preview.append($('<img>').attr({
-                      src: e.target.result,
-                      height: "100px",
-                      width: "100px",
-                      class: "preview",
-                      title: file.name,
-                      id: "preview_"+image_no,
-                      value: image_no
-                  }));
+            $preview.append(builduploadimageresultHTML(image_no,e.target.result))
           };
         })(file);
         reader.readAsDataURL(file);
-        $(this).addClass("item_new__image--views-box-input")
-        var input_uploaded = $('.item_new__image--input > item_new__image--input-input').html();
-        $('.item_new__image--views').html(input_uploaded);
+        $(this).addClass("item_new__image--views-box-input");
+        setTimeout(function(){
+          var preview_count = $('.item_new__image--box-prevews').children().length;
+          var preview_count_1 = $('.item_new__image--box-prevews-1').children().length;
+          if (preview_count == 5 && preview_count_1 == 0 ) {
+            var children_html = $('.item_new__image--box-prevews').html();
+            $('.item_new__image--box-prevews-1').append(children_html);
+            $('.item_new__image--box-prevews').empty();
+
+          }else if(preview_count == 5 && preview_count_1 == 5){
+            $('.item_new__image--input').css('display','none');
+          };
+        },10);
+      });
+
+      $(document).on("click",'.preview',function(){
+        var image_box_no = $(this).attr("value");
+        $('.input_image_10'+ image_box_no).remove();
+        $(this).remove();
+        var preview_count_1 = $('.item_new__image--box-prevews-1').children().length;
+        var preview_count = $('.item_new__image--box-prevews').children().length;
+        if( preview_count_1 == 4 ){
+          var children_html = $('.item_new__image--box-prevews .item_new__image--view').prop("outerHTML");
+          $('.item_new__image--box-prevews-1').append(children_html);
+          $('.item_new__image--box-prevews .item_new__image--view:first').remove();
+          if(preview_count == 0){
+            var children_html = $('.item_new__image--box-prevews-1').html();
+            $('.item_new__image--box-prevews').append(children_html);
+            $('.item_new__image--box-prevews-1').empty();
+          };
+        };
+        $('.item_new__image--input').css('display','unset');
       });
 
       var new_image_box_no = 100
@@ -60,15 +97,8 @@ $(window).on('load',function(){
       });
 
 
-    $(".item_new__image--input").click(function(){
 
-    });
 
-      $(document).on("click",'.preview',function(){
-        var image_box_no = $(this).attr("value");
-        $('.input_image_10'+ image_box_no).remove();
-        $(this).remove();
-      });
 
 
     var price_value = $('.item_new__price--price-input').attr("value");
@@ -102,9 +132,6 @@ $(window).on('load',function(){
         $(".item_new__price--price-profit-value").text("ー")
       }
     });
-
-
-
   };
 });
 
