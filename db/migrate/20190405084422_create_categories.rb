@@ -5,6 +5,7 @@ class CreateCategories < ActiveRecord::Migration[5.0]
       t.string :ancestry, index: true
       t.string :parent, index: true
       t.string :child, index: true
+      t.string :item_size_id
       t.timestamps
     end
   end

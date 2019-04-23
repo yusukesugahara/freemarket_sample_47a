@@ -26,6 +26,16 @@ body{
     color: white;
     line-height: 17px;
   }
+  &__no_need_mark{
+    @include box(15px,24px);
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 2px 4px;
+    margin-left: 10px;
+    background-color: #aaa;
+    color: white;
+    line-height: 17px;
+  }
   &__right-box{
     @include box(auto,400px);
     margin-left: auto;
@@ -242,7 +252,44 @@ body{
       color: #000;
     }
   }
+  &__category-input--child{
+    display: none;
+  }
+  &__category-input--grandchild{
+    display: none;
+  }
+  &__item_size--input{
+    display: none;
+  }
+  &__brand--box{
+      position: relative;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      @include box(48px,366px);
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 0px 16px;
+      -webkit-appearance: button;
+      background-color: white;
+      color: #000;
+  }
+  &__brand--box::placeholder{
+    color: black;
+  }
+  &__brand--input{
+    position: relative;
+    &-suggest{
+      display: none;
+      position: absolute;
+      margin: -20px 0 0 0 ;
+      @include box(278px,398px);
+      overflow-y:scroll;
+      background-color: white;
+      z-index: 100;
+      border: 1px solid #ccc;
 
+    }
+  }
   &__price{
     padding: 40px;
     display: flex;

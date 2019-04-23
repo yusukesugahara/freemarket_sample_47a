@@ -96,27 +96,20 @@ $(window).on('load',function(){
           new_image_box_no += 1
       });
 
-
-
-
-
-
     var price_value = $('.item_new__price--price-input').attr("value");
-      var sales_commission = (price_value * 0.1)
-      var sales_commission_value = Math.round(sales_commission)
+    var sales_commission = (price_value * 0.1)
+    var sales_commission_value = Math.round(sales_commission)
     $(".item_new__price--price-sales-commission-value").text(sales_commission_value)
-
-      $(".item_new__price--price-sales-commission-value").text(sales_commission_value)
-      var price_profit = (price_value * 0.9)
-      var price_profit_value = Math.round(price_profit)
-      $(".item_new__price--price-profit-value").text(price_profit_value)
+    $(".item_new__price--price-sales-commission-value").text(sales_commission_value)
+    var price_profit = (price_value * 0.9)
+    var price_profit_value = Math.round(price_profit)
+    $(".item_new__price--price-profit-value").text(price_profit_value)
 
     var input_price = $(".item_new__price--price-input").val();
-      if (input_price == "" ) {
-        $(".item_new__price--price-sales-commission-value").text("ー")
-        $(".item_new__price--price-profit-value").text("ー")
+    if (input_price == "" ) {
+      $(".item_new__price--price-sales-commission-value").text("ー")
+      $(".item_new__price--price-profit-value").text("ー")
       }
-
 
     $(document).on("keyup",".item_new__price--price-input",function(){
       var input_price = $(".item_new__price--price-input").val();
@@ -130,8 +123,76 @@ $(window).on('load',function(){
       }else{
         $(".item_new__price--price-sales-commission-value").text("ー")
         $(".item_new__price--price-profit-value").text("ー")
-      }
+      };
     });
+
+  // カテゴリの選択
+    var parent_value = ""
+    $(document).on("change","#item_new__category--parent",function(){
+      $(".item_new__category-input--child").css("display","none");
+      $(".item_new__category-input--grandchild").css("display","none");
+        parent_value = $('#item_new__category--parent option:selected').val();
+      $(".item_new__category--"+parent_value).css("display","unset")
+      $(".item_new__category-input--child-input").val("");
+      $(".item_new__category-input--grandchild-input").val("");
+    });
+    $(document).on("change",".item_new__category-input--child-input",function(){
+      $(".item_new__category-input--grandchild").css("display","none");
+      var category_id = '#item_new__category-child-' + parent_value
+      var child_num = $(category_id).val();
+      $(".item_new__category-" + child_num).css("display","unset");
+      $(".item_new__category-input--grandchild-input").val("");
+    });
+
+    $(document).on("change","#item_new__item_size",function(){
+      var item_size_parent_id = $(this).val();
+      $(".item_new__item_size--input").css("display","none");
+      $(".item_new__item_size-"+item_size_parent_id).css("display","unset");
+      $(".item_new__item_size--input-box").val("");
+    });
+
+  function buildHTML(keyword){
+    var html = `
+                <div class= "item_new__brand--input-suggest-text">${keyword.name}</div>
+                `
+    return html;
+  };
+
+  $('.item_new__brand--box').on('keyup', function(e) {
+    e.preventDefault();
+    var keyword = $(this).val();
+    $(".item_new__brand--input-suggest").empty();
+    $("item_new__brand--input-suggest").css('display','unset');
+    $.ajax({
+      type: 'GET',
+      url: "/search_keywords",
+      data: {keyword: keyword},
+      dataType: 'json'
+    })
+    .done(function(keywords){
+      keywords.forEach(function(keywords){
+      var html = buildHTML(keywords);
+      $(".item_new__brand--input-suggest").append(html);
+      });
+    })
+    .fail(function(error){
+      alert('error')
+    });
+  });
+
+  $(document).on("click",".item_new__brand--input-suggest-text",function(){
+    var keyword = $(this).text();
+     $(".item_new__brand--box").val(keyword);
+  });
+  $(".item_new__brand--box").focusin(function(e) {
+    $(".item_new__brand--input-suggest").css("display","unset")
+  });
+  $(".item_new__brand--box").focusout(function(e) {
+    setTimeout(function(){
+       $(".item_new__brand--input-suggest").css("display","none")
+    },200);
+  });
+
   };
 });
 
