@@ -3,13 +3,10 @@ body{
     font-family: 'Source Sans Pro', Helvetica , Arial, '游ゴシック体', 'YuGothic', 'メイリオ', 'Meiryo', sans-serif;
 }
 
-
 @mixin box($height,$width){
   height: $height;
   width: $width;
 }
-
-
 
 .item_new{
   @include box(auto,700px);
@@ -26,6 +23,16 @@ body{
     padding: 2px 4px;
     margin-left: 10px;
     background-color: #ea352d;
+    color: white;
+    line-height: 17px;
+  }
+  &__no_need_mark{
+    @include box(15px,24px);
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 2px 4px;
+    margin-left: 10px;
+    background-color: #aaa;
     color: white;
     line-height: 17px;
   }
@@ -67,7 +74,6 @@ body{
       margin: 0 auto;
     }
   }
-
   &__title{
     @include box(33px,675px);
     text-align: center;
@@ -76,8 +82,19 @@ body{
     padding: 32px 16px;
   }
   &__image{
-    @include box(223px,auto);
+    width: auto;
     padding: 40px;
+    &--box{
+      margin-top: 18px;
+      display: flex;
+      width: auto;
+      &-prevews{
+        display: flex;
+      }
+      &-prevews-1{
+        display: flex;
+      }
+    }
     &--titles{
       display: flex;
     }
@@ -86,27 +103,32 @@ body{
       font-size: 14px;
     }
     &--input{
-      @include box(50px,538px);
+      @include box(164px,-webkit-fill-available);
       background-color: #f5f5f5;
-      padding: 55px 40px;
       border: 1px dashed #ccc;
-      margin-top: 18px;
       text-align: center;
       font-size: 14px;
       letter-spacing: -2px;
       color: #000;
+      position: relative;
+        &-text{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform : translate(-50%,-50%);
+          transform : translate(-50%,-50%);
+           text-align: center;
+        }
       &-zone{
         @include box(auto,auto)
       }
-
-
     }
     &--input-none{
       display: none;
     }
   }
   &__image--views{
-    @include box(120px,auto);
+    @include box(0px,auto);
     padding: 0 55px ;
     display: flex;
     &-box{
@@ -126,19 +148,29 @@ body{
     display: none;
   }
   &__image--view{
-    display: none;
-    @include box(160px,114px);
+    @include box(164px,115px);
     background: #f5f5f5;
     margin-right: 10px;
+    border-top: 0.5px solid #eee;
+    border-left: 0.5px solid #eee;
+    border-right: 0.5px solid #eee;
     &-image{
+      border-left: 0.5px solid #eee;
+      border-right: 0.5px solid #eee;
+      border-top: 0.5px solid #eee;
       margin: auto 0;
       @include box(116px,114px);
     }
     &-buttons{
-      @include box(44px,114px);
+      @include box(44px,116px);
       display: flex;
       background-color: white;
       &-edit-button{
+        border-left: 0.5px solid #eee;
+        border-bottom: 0.5px solid #eee;
+        font-size: 14px;
+        text-align: center;
+        line-height: 44px;
         @include box(44px,57px);
         color:#0099e8;
         background: #f5f5f5;
@@ -148,19 +180,22 @@ body{
         opacity: 0.7;
         text-decoration: underline;
       }
-      &-new-button{
+      &-delete-button{
+        border-left: 0.5px solid #eee;
+        border-right: 0.5px solid #eee;
+        border-bottom: 0.5px solid #eee;
+        font-size: 14px;
+        line-height: 44px;
+        text-align: center;
         @include box(44px,57px);
         color:#0099e8;
         background: #f5f5f5;
         z-index: 100;
       }
-      &-new-button:hover{
+      &-delete-button:hover{
         opacity: 0.7;
         text-decoration: underline;
-
-
       }
-
     }
   }
   &__item_name_description{
@@ -217,7 +252,44 @@ body{
       color: #000;
     }
   }
+  &__category-input--child{
+    display: none;
+  }
+  &__category-input--grandchild{
+    display: none;
+  }
+  &__item_size--input{
+    display: none;
+  }
+  &__brand--box{
+      position: relative;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      @include box(48px,366px);
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 0px 16px;
+      -webkit-appearance: button;
+      background-color: white;
+      color: #000;
+  }
+  &__brand--box::placeholder{
+    color: black;
+  }
+  &__brand--input{
+    position: relative;
+    &-suggest{
+      display: none;
+      position: absolute;
+      margin: -20px 0 0 0 ;
+      @include box(278px,398px);
+      overflow-y:scroll;
+      background-color: white;
+      z-index: 100;
+      border: 1px solid #ccc;
 
+    }
+  }
   &__price{
     padding: 40px;
     display: flex;
