@@ -67,7 +67,6 @@ $(window).on('load',function(){
       $(input_image_boxs).each(function(index,value,){
       var image_url =$(this).attr("image_url");
       var value = $(this).attr("value");
-      console.log(index);
       $('.item_new__image--box-prevews').append(builduploadimageresultHTML(value,image_url,index));
     })}else if (input_image_boxs > 5 ){
       $(input_image_boxs).each(function(index,value,){
