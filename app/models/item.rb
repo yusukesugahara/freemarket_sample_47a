@@ -21,7 +21,7 @@ class Item < ApplicationRecord
 
   accepts_nested_attributes_for :item_images
 
-  validates_presence_of :name,:description, :user_id, :condition_id, :shipping_burden_id, :shipping_style_id, :prefecture_id, :date_of_shipment_id, :price, :status_id, :category_ids, :item_size_ids
+  validates_presence_of :name,:description, :user_id, :condition_id, :shipping_burden_id, :shipping_style_id, :prefecture_id, :date_of_shipment_id, :price, :status_id, :category_ids
 
   extend ActiveHash::Associations::ActiveRecordExtensions
     belongs_to_active_hash :prefecture
