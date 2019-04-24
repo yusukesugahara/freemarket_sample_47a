@@ -147,10 +147,10 @@ $(window).on('load',function(){
     var price_value = $('.item_new__price--price-input').attr("value");
     var sales_commission = (price_value * 0.1)
     var sales_commission_value = Math.round(sales_commission)
-    $(".item_new__price--price-sales-commission-value").text(sales_commission_value)
+    $(".item_new__price--price-sales-commission-value").text(sales_commission_value.toLocaleString())
     var price_profit = (price_value * 0.9)
     var price_profit_value = Math.round(price_profit)
-    $(".item_new__price--price-profit-value").text(price_profit_value)
+    $(".item_new__price--price-profit-value").text(price_profit_value.toLocaleString())
 
     var input_price = $(".item_new__price--price-input").val();
     if (input_price == "" ) {
