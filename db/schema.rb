@@ -41,8 +41,9 @@ ActiveRecord::Schema.define(version: 20190415101842) do
     t.string   "ancestry"
     t.string   "parent"
     t.string   "child"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "item_size_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["ancestry"], name: "index_categories_on_ancestry", using: :btree
     t.index ["child"], name: "index_categories_on_child", using: :btree
     t.index ["parent"], name: "index_categories_on_parent", using: :btree
@@ -161,6 +162,7 @@ ActiveRecord::Schema.define(version: 20190415101842) do
     t.integer  "date_of_shipment_id",               null: false
     t.integer  "price",                             null: false
     t.integer  "status_id",                         null: false
+    t.string   "brand_name"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.index ["condition_id"], name: "index_items_on_condition_id", using: :btree

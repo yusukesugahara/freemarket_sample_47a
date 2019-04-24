@@ -45,6 +45,10 @@ $(function(){
         if ( current_grand_child_id == grand_child_id){
           $('.header__category_brand--box-grandchild').css('display','none');
           $(this).css('display','unset');
+          var test = $(this).children('a').length
+          if (test == 0){
+             $('.header__category_brand--box-grandchild').css('display','none');
+          }
         };
       });
     });

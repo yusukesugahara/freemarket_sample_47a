@@ -1,34 +1,31 @@
 require "csv"
 
 CSV.foreach('db/data_reading_files/shipping_burdens.csv') do |row|
-  ShippingBurden.create(:name => row[0])
+  ShippingBurden.create(name: row[0])
 end
 CSV.foreach('db/data_reading_files/date_of_shipments.csv') do |row|
-  DateOfShipment.create(:name => row[0])
+  DateOfShipment.create(name: row[0])
 end
 CSV.foreach('db/data_reading_files/shipping_styles.csv') do |row|
-  ShippingStyle.create(:name => row[0])
+  ShippingStyle.create(name: row[0])
 end
 CSV.foreach('db/data_reading_files/conditions.csv') do |row|
-  Condition.create(:name => row[0])
+  Condition.create(name: row[0])
 end
 CSV.foreach('db/data_reading_files/statuses.csv') do |row|
-  Status.create(:name => row[0])
+  Status.create(name: row[0])
 end
-# CSV.foreach('db/data_reading_files/users.csv') do |row|
-#   User.create(:email => row[0],:password => row[1],:password_confirmation => row[1],:name => row[2])
-# end
 CSV.foreach('db/data_reading_files/users.csv') do |row|
-  User.create(:email => row[0],:password => row[1],:password_confirmation => row[1],:name => row[2])
+  User.create(email: row[0],password: row[1],password_confirmation: row[1],name: row[2])
 end
 CSV.foreach('db/data_reading_files/size.csv') do |row|
-  ItemSize.create(:name => row[0],:parents => row[1])
+  ItemSize.create(name: row[0],parents: row[1])
 end
-CSV.foreach('db/data_reading_files/brand_result.csv') do |row|
-  Brand.create(:name => row[0])
+CSV.foreach('db/data_reading_files/brand.csv') do |row|
+  Brand.create(name: row[0])
 end
 CSV.foreach('db/data_reading_files/category_result.csv') do |row|
-  Category.create(:name => row[0],:ancestry => row[1],:parent=> row[2],:child => row[3])
+  Category.create(name: row[0],ancestry: row[1],parent: row[2],child: row[3],item_size_id: row[4] )
 end
 CSV.foreach('db/data_reading_files/item_image.csv') do |row|
   ItemImage.create( image: File.open('db/data_reading_files/images/'+ row[0]))
