@@ -16,17 +16,19 @@
                 必須
             .item_new__image--description
               最大10枚までアップロードできます
+              .item_new__image--description-box
+                = f.fields_for :item_images do |i|
+                  .item_new__edit--inputed{class: "item_new__edit--inputed-#{i.index}"}
+                    = i.file_field :image ,class: "input_image_#{i.object.id} item_new__image--views-box-input input_image",value: i.object.id,image_url: i.object.image.url
+                .item_new__image--select
+            .item_new__image--box-prevews-1
+            .item_new__image--box
+
+              .item_new__image--box-prevews
               .item_new__image--input
-                ドラッグアンドドロップ
-                %br
-                またはクリックしてファイルをアップロード
-                %br
-                .item_new__image--views
-                  = f.fields_for :item_images do |i|
-                    .item_new__image--views-box{class:"item_new__image--views-box#{i.object.id}"}
-                      = i.file_field :image ,class: "input_image_#{i.object.id} item_new__image--views-box-input input_image",value: i.object.id
-                      = i.file_field :id ,class: "input_image_#{i.object.id} item_new__image--views-box-input input_image",value: i.object.id
-                      = image_tag(i.object.image.url,class:"item_new__image--views-box-img preview input_image_#{i.object.id}",value: i.object.id )
+                .item_new__image--input-text
+                  クリックしてファイルをアップロード
+
 
         %hr.item_new__line
         .item_new__item_name_description
@@ -58,24 +60,38 @@
                   カテゴリー
                 .item_new__need_mark
                   必須
-              = f.collection_select :category_ids ,Category.all,:id,:name,{multiple: true,include_blank: "---"},class: "item_new__deteils--input", type: "text"
+              = f.collection_select :category_ids ,Category.where(ancestry: nil),:id,:name,{multiple: true,include_blank: "---"},class: "item_new__deteils--input item_new__category-input--parent",id: "item_new__category--parent", type: "text"
               .fas.fa-chevron-down.item_new__allow-icon
+              - Category.where(ancestry: nil).each do |category_parent|
+                .item_new__category-input--child{class: "item_new__category--#{category_parent.id}"}
+                  = f.collection_select :category_ids ,Category.where(ancestry: category_parent.id),:id,:name,{multiple: true,include_blank: "---"},class: "item_new__deteils--input item_new__category-input--child-input",id: "item_new__category-child-#{category_parent.id}", type: "text"
+                  .fas.fa-chevron-down.item_new__allow-icon
+              - Category.where(id: 14..158).each do |category_child|
+                .item_new__category-input--grandchild{class: "item_new__category-#{category_child.id}"}
+                  = f.collection_select :category_ids ,Category.where(ancestry: category_child.id),:id,:name,{multiple: true,include_blank: "---"},class: "item_new__deteils--input item_new__category-input--grandchild-input", type: "text"
+                  .fas.fa-chevron-down.item_new__allow-icon
             .item_new__deteils--box
               .item_new__deteils--name
                 .item_new__child--title
                   サイズ
-                .item_new__need_mark
-                  必須
-              = f.collection_select :item_size_ids,ItemSize.all,:id,:name,{multiple: true,include_blank: "---"},class: "item_new__deteils--input", type: "text"
+                .item_new__no_need_mark
+                  任意
+              = f.collection_select :item_size_ids,ItemSize.where(parents: nil),:id,:name,{multiple: true,include_blank: "---"},class: "item_new__deteils--input",id: "item_new__item_size", type: "text"
               .fas.fa-chevron-down.item_new__allow-icon
+              - ItemSize.where(parents: nil).each do |parents|
+                .item_new__item_size--input{class: "item_new__item_size-#{parents.id}"}
+                  = f.collection_select :item_size_ids,ItemSize.where(parents: parents.id),:id,:name,{multiple: true,include_blank: "---"},class: "item_new__deteils--input item_new__item_size--input-box", type: "text"
+                  .fas.fa-chevron-down.item_new__allow-icon
+
             .item_new__deteils--box
               .item_new__deteils--name
                 .item_new__child--title
                   ブランド
-                .item_new__need_mark
-                  必須
-              = f.collection_select :brand_ids,Brand.all,:id,:name,{multiple: true,include_blank: "---"},class: "item_new__deteils--input", type: "text"
-              .fas.fa-chevron-down.item_new__allow-icon
+                .item_new__no_need_mark
+                  任意
+              = f.text_field :brand_name,class: "item_new__brand--box", type: "text",placeholder: "---",autocomplete: "off"
+              .item_new__brand-input
+                .item_new__brand--input-suggest
             .item_new__deteils--box
               .item_new__deteils--name
                 .item_new__child--title
@@ -100,7 +116,7 @@
             .fas.fa-chevron-down.item_new__allow-icon
             .item_new__deteils--name
               .item_new__child--title
-                配送料の負担
+                配送の方法
               .item_new__need_mark
                 必須
             = f.collection_select :shipping_style_id ,ShippingStyle.all,:id,:name,{include_blank: "---"},class: "item_new__deteils--input" ,type: "text"
@@ -167,8 +183,8 @@
             = f.hidden_field :status_id , value: "1"
 
             = f.submit "変更する", class: "item_new__send--send-button"
-          .item_new__send--back-button
-            もどる
-
+            = link_to root_path ,class:"item_new__send--back-link" do
+              .item_new__send--back-button
+                もどる
 
   = render "shered/item_fotter"

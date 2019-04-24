@@ -144,6 +144,25 @@ $(window).on('load',function(){
       $(".item_new__category-input--grandchild-input").val("");
     });
 
+    $('.item_new__send--send-button').on('click',function(){
+      $('.item_new__category-input--child').each(function(){
+        if($(this).css('display') == 'none'){
+          $(this).remove();
+        };
+      });
+      $('.item_new__category-input--grandchild').each(function(){
+        if($(this).css('display') == 'none'){
+          $(this).remove();
+        };
+      });
+
+      $('.item_new__item_size--input').each(function(){
+        if($(this).css('display') == 'none'){
+          $(this).remove();
+        };
+      });
+    });
+
     $(document).on("change","#item_new__item_size",function(){
       var item_size_parent_id = $(this).val();
       $(".item_new__item_size--input").css("display","none");
