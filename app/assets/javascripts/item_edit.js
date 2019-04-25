@@ -210,6 +210,16 @@ $(window).on('load',function(){
       });
     });
 
+
+    var category_child = $('.item_new__category--data').attr('parent');
+    var category_parent = $('.item_new__category--data').attr('child');
+    var category_grandchild = $('.item_new__category--data').attr('grandchild');
+    $('.item_new__category-input--parent').children('option[value='+category_parent+']').parent().parent().css('display','unset');
+
+    $('.item_new__category-input--child-input').children('option[value='+category_child+']').parent().parent().css('display','unset');
+
+    $('.item_new__category-input--grandchild-input').children('option[value='+category_grandchild+']').parent().parent().css('display','unset');
+
     $(document).on("change","#item_new__item_size",function(){
       var item_size_parent_id = $(this).val();
       $(".item_new__item_size--input").css("display","none");

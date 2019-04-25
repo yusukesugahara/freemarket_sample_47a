@@ -40,7 +40,7 @@ $(window).on('load',function(){
             reader = new FileReader(),
             $preview = $(".item_new__image--box-prevews");
             t = this;
-        if(file.type.indexOf("image") < 0){
+        if (file.type.indexOf("image") < 0){
           return false;
         }
         reader.onload = (function(file) {
