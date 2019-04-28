@@ -9,27 +9,38 @@ $(window).on('load',function(){
   });
 
 // チェックボックスONOFF
-  $(document).on("click",'input[name="q[condition_id]"]',function(){
+  // ページ更新後全てにチェックが入っている状態
+  $('input[type="checkbox"][name="q[condition_id]"]').prop("checked",true);
+  $('input[type="checkbox"][name="q[shipping_burden_id]"]').prop("checked",true);
+  $('input[type="checkbox"][name="q[status_id]"]').prop("checked",true);
+  $('input[type="checkbox"][name="q[condition_id_in][]"]').prop("checked",true);
+  $('input[type="checkbox"][name="q[shipping_burden_id_in][]"]').prop("checked",true);
+  $('input[type="checkbox"][name="q[status_id_in][]"]').prop("checked",true);
+
+  // コンディションのチェック
+  $(document).on("click",'input[type="checkbox"][name="q[condition_id]"]',function(){
     if($("#search__check-box-all-condition").prop('checked')) {
-      $('input[name="q[condition_id_in_any]"]').prop("checked",true);
+      $('input[type="checkbox"][name="q[condition_id_in][]"]').prop("checked",true);
     }else {
-      $('input[name="q[condition_id_in_any]"]').prop("checked",false);
+      $('input[type="checkbox"][name="q[condition_id_in][]"]').prop("checked",false);
     }
   });
 
-  $(document).on("click",'input[name="q[shipping_burden_id]"]',function(){
+  // 送料負担のチェック
+  $(document).on("click",'input[type="checkbox"][name="q[shipping_burden_id]"]',function(){
     if($("#search__check-box-all-shipping_burden").prop('checked')) {
-      $('input[name="q[shipping_burden_id_in_any]"]').prop("checked",true);
+      $('input[type="checkbox"][name="q[shipping_burden_id_in][]"]').prop("checked",true);
      }else {
-      $('input[name="q[shipping_burden_id_in_any]"]').prop("checked",false);
+      $('input[type="checkbox"][name="q[shipping_burden_id_in][]"]').prop("checked",false);
      }
   });
 
+  // ステータスのチェック
   $(document).on("click",'input[name="q[status_id]"]',function(){
     if($("#search__check-box-all-status").prop('checked')) {
-      $('input[name="q[status_id_in_any]"]').prop("checked",true);
+      $('input[type="checkbox"][name="q[status_id_in][]"]').prop("checked",true);
     }else {
-      $('input[name="q[status_id_in_any]"]').prop("checked",false);
+      $('input[type="checkbox"][name="q[status_id_in][]"]').prop("checked",false);
     }
   });
 
@@ -48,14 +59,20 @@ $(window).on('load',function(){
   });
 
 // カテゴリの選択
+  $('input[type="checkbox"][name="q[categories_id_in]"]').prop("checked",true);
   var parent_value = ""
   $(document).on("change","#search__category-parent",function(){
     $(".search__search_bar--category-child").css("display","none");
     $(".search__search_bar--category-grandchild").css("display","none");
       parent_value = $('#search__category-parent option:selected').val();
     $(".search__search_bar--category-"+parent_value).css("display","unset")
-    $('input[name="q[categories_id_in_any][]"]').prop("checked",false);
+    $('input[type="checkbox"][name="q[categories_id_in][]"]').prop("checked",false);
     $(".search__search_bar--detailed_search-input-box-child").val("");
+    console.log(parent_value)
+    if (parent_value == ''){
+      $('input[type="checkbox"][name="q[categories_id_in]"]').prop("checked",true);
+      alert("test")
+    };
   });
   $(document).on("change",".search__search_bar--detailed_search-input-box-child",function(){
     $(".search__search_bar--category-grandchild").css("display","none");
@@ -63,15 +80,17 @@ $(window).on('load',function(){
     var category_id = '#search__category-child-' + parent_value
     var child_num = $(category_id).val();
     $(".search__search_bar--category-" + child_num).css("display","unset");
-    $('input[name="q[categories_id_in_any][]"]').prop("checked",false);
+    $('input[type="checkbox"][name="q[categories_id_in][]"]').prop("checked",false);
   });
+
+
 
 // アイテムサイズの選択
   $(document).on("change","#search__item_size",function(){
     var item_size_parent_id = $(this).val();
     $(".search__search_bar--detailed_search-input-item_size-box").css("display","none");
     $(".search__item_sizes_"+item_size_parent_id).css("display","unset");
-    $('input[name="q[item_sizes_id_in_any][]"]').prop("checked",false);
+    $('input[type="checkbox"][name="q[item_sizes_id_in][]"]').prop("checked",false);
   });
 
   // ブランド名のインクリメンタルサーチ
@@ -155,6 +174,18 @@ $(window).on('load',function(){
     return html;
   }
 
+
+
+  function SearchResultZeroHTML(){
+    var html =
+    `
+    <div class="search__result-description">
+      該当する商品が見つかりません。商品は毎日増えていますので、これからの出品に期待してください。
+    </div>
+    `
+    return html;
+  }
+
   $('#item_search').on('submit', function(e){
     e.preventDefault();
     $(".search__result-description").text("");
@@ -169,12 +200,18 @@ $(window).on('load',function(){
       contentType: false
     })
     .done(function(items){
-      $(".search__result--title").text("検索結果 1-" + items.length + "件");
       $('.search__result--boxs').empty();
-      items.forEach(function(item) {
+      if (items.length != 0){
+        $(".search__result--title").text("検索結果 1-" + items.length + "件");
+        items.forEach(function(item) {
         var html = buildSendItemHTML(item);
         $('.search__result--boxs').append(html);
-      });
+        });
+      }else{
+        $(".search__result--title").text("検索結果 0件");
+        var html = SearchResultZeroHTML();
+        $('.search__result--boxs').append(html);
+      }
     })
     .fail(function(){
       alert('error');
@@ -184,15 +221,12 @@ $(window).on('load',function(){
     });
   })
 
-
 // ソート
   $(document).on("change","#search__sort",function(e){
     e.preventDefault();
     $(".search__result-description").text("");
     var for_sort_target = $("#item_search");
     var for_sort_formData = new FormData(for_sort_target.get(0));
-    for (value of for_sort_formData.entries()) {
-    console.log(value);}
     $.ajax({
       url: "/searches",
       type: "POST",

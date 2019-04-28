@@ -37,7 +37,7 @@
               .search__search_bar--detailed_search-input.search__search_bar--category-grandchild{category_grandchild:grandchild.id, class:"search__search_bar--category-#{grandchild.ancestry}" }
                 .search__search_bar--detailed_search-input-check-box
                   .search__search_bar--detailed_search-input-check-box-box
-                    = f.check_box :categories_id_in_any , { multiple: true },grandchild.id,name:grandchild.name,class: "search__search_bar--detailed_search-input-check-box", type: "text",value: grandchild.id
+                    = f.check_box :categories_id_in , { multiple: true },grandchild.id,nil
                   .search__search_bar--detailed_search-input-check-box-text
                     = grandchild.name
 
@@ -64,7 +64,7 @@
                   .search__search_bar--detailed_search-input-item_size-box.search__hide{class: "search__item_sizes_#{item_sizes_child.parents}"}
                     .search__search_bar--detailed_search-input-check-box
                       .search__search_bar--detailed_search-input-check-box-box
-                        = f.check_box :item_sizes_id_in_any , { multiple: true },name:item_sizes_child.name,class: "search__search_bar--detailed_search-input ", type: "text",value: item_sizes_child.id
+                        = f.check_box :item_sizes_id_in , { multiple: true },item_sizes_child.id,nil
                       .search__search_bar--detailed_search-input-check-box-text
                         = item_sizes_child.name
           .search__search_bar--detailed_search-box
@@ -91,13 +91,13 @@
             .search__search_bar--detailed_search-input-check-boxs
               .search__search_bar--detailed_search-input-check-box
                 .search__search_bar--detailed_search-input-check-box-box
-                  = f.check_box :condition_id,{id:"search__check-box-all-condition"},checked_value: nil,unchecked_value: nil
+                  = f.check_box :condition_id,{id:"search__check-box-all-condition"},nil,nil
                 .search__search_bar--detailed_search-input-check-box-text
                   すべて
               - Condition.all.each do |condition|
                 .search__search_bar--detailed_search-input-check-box
                   .search__search_bar--detailed_search-input-check-box-box
-                    =  f.check_box :condition_id_in_any,{},checked_value: condition.id,unchecked_value: nil
+                    =  f.check_box :condition_id_in,{ multiple: true },condition.id,nil
                   .search__search_bar--detailed_search-input-check-box-text
                     = condition.name
 
@@ -115,7 +115,7 @@
               - ShippingBurden.all.each do |shipping_burden|
                 .search__search_bar--detailed_search-input-check-box
                   .search__search_bar--detailed_search-input-check-box-box
-                    = f.check_box :shipping_burden_id_in_any ,{},checked_value: shipping_burden.id,unchecked_value: nil
+                    = f.check_box :shipping_burden_id_in ,{multiple: true }, shipping_burden.id,nil
                   .search__search_bar--detailed_search-input-check-box-text
                     = shipping_burden.name
 
@@ -133,7 +133,7 @@
               - Status.all.each do |status|
                 .search__search_bar--detailed_search-input-check-box
                   .search__search_bar--detailed_search-input-check-box-box
-                    = f.check_box :status_id_in_any,{},checked_value: status.id,unchecked_value: nil
+                    = f.check_box :status_id_in,{ multiple: true },status.id, nil
                   .search__search_bar--detailed_search-input-check-box-text
                     = status.name
             .search__check-box-space
